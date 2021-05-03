@@ -1,7 +1,6 @@
 const LanguageTranslatorV3 = require('ibm-watson/language-translator/v3');
 const { IamAuthenticator } = require('ibm-watson/auth');
 
-
 /**
  * Helper 
  * @param {*} errorMessage 
@@ -46,17 +45,33 @@ function main(params) {
 
       // in case of errors during the call resolve with an error message according to the pattern 
       // found in the catch clause below
-
-      resolve({
-        statusCode: 200,
-        body: {
-          text: params.text, 
-          language: "<Best Language>",
-          confidence: 0.5,
-        },
-        headers: { 'Content-Type': 'application/json' }
+      const languageTranslator = new LanguageTranslatorV3({
+        version: "2018-05-01",
+        authenticator: new IamAuthenticator({
+          apikey: "vqSPmDc-QmcclJNBZPOU70otp18FzZgwQQFY38EfWlf3",
+        }),
+        serviceUrl: "https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/770d1fcc-1d5a-4b99-a6a9-611bd8737808",
       });
 
+      const identifyParams = {
+        text: params.text
+      };
+
+      languageTranslator.identify(identifyParams)
+          .then(identifiedLanguages => {
+            resolve({
+              statusCode: 200,
+              body: {
+                text: params.text,
+                language: identifiedLanguages.result.languages[0].language,
+                confidence: identifiedLanguages.result.languages[0].confidence
+              },
+              headers: { 'Content-Type': 'application/json' }
+            });
+          })
+          .catch(err => {
+            console.log('error:', err);
+          });
 
     } catch (err) {
       console.error('Error while initializing the AI service', err);

@@ -7,7 +7,7 @@
 # Dockerhub image names look like "username/appname" and must be all lower case.
 # For example, "janesmith/calculator"
 
-IMAGE_NAME=$1
+IMAGE_NAME=dnszlr/translator
 echo "Using $IMAGE_NAME as the image name"
 
 # Make the docker image

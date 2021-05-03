@@ -1,5 +1,5 @@
 {
-  "apikey": "<your-api-key>",
+  "apikey": "vqSPmDc-QmcclJNBZPOU70otp18FzZgwQQFY38EfWlf3",
   "version": "2018-05-01",
-  "url": "https://gateway-fra.watsonplatform.net/language-translator/api"
+  "url": "https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/770d1fcc-1d5a-4b99-a6a9-611bd8737808"
 }
